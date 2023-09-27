@@ -6,8 +6,8 @@ function startGame() {
   const leftBtn = document.querySelector('.btn');
   const showScore = document.querySelector('.sc');
   const gameOverMsg = document.querySelector('.gameover'); 
-  const img = new Image();
-  const imgg = new Image();
+  const carImg = new Image();
+  const roadImg = new Image();
   let score = 0;
   const car = {
     x: 216,
@@ -19,11 +19,11 @@ function startGame() {
 
   const obstacles = []; // Array to store obstacle positions
 
-  img.onload = () => {
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    imgg.src = './images/car.png'; 
+  carImg.onload = () => {
+    ctx.drawImage(carImg, 0, 0, canvas.width, canvas.height);
+    roadImg.src = './images/car.png'; 
   };
-  img.src = './images/road.png';
+  carImg.src = './images/road.png';
 
   function moveRight() {
     car.x += 35;
@@ -44,27 +44,33 @@ function startGame() {
   }
 
   function checkCollision() {
+    const carWidth = 150;  
+    const carHeight = 100;
+    const obstacleWidth = 150; 
+    const obstacleHeight = 25; 
+  
     for (let i = 0; i < obstacles.length; i++) {
       const obstacle = obstacles[i];
       if (
-        car.x < obstacle.x + 150 &&
-        car.x + car.width > obstacle.x &&
-        car.y < obstacle.y + 25 &&
-        car.y + car.height > obstacle.y
+        car.x < obstacle.x + obstacleWidth &&
+        car.x + carWidth > obstacle.x &&
+        car.y < obstacle.y + obstacleHeight &&
+        car.y + carHeight > obstacle.y
       ) {
         // Collision detected
-        clearInterval(obstacleInterval);
-        gameOverMsg.innerHTML = `<span class="one">Game Over!</span> <br> <span class="two">Your Final Score is</span> <br> <span class="two">${score}</span>`; // Display game over message
+        clearInterval(obstacleInterval); 
+        gameOverMsg.innerHTML = `<span class="one">Game Over!</span> <br> <span class="two">Your Final Score is</span> <br> <span class="two">${score}</span>`; 
         return true;
       }
     }
-    return false;
+    return false; 
   }
+  
 
   function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(imgg, car.x, car.y, car.width, car.height);
+    ctx.drawImage(carImg, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(roadImg, car.x, car.y, car.width, car.height);
 
     for (let i = 0; i < obstacles.length; i++) {
       const obstacle = obstacles[i];
@@ -82,6 +88,7 @@ function startGame() {
     if (!checkCollision()) {
       // the game is not over
       requestAnimationFrame(update);
+      cancelAnimationFrame(animationFrameID);
     }
   }
 
