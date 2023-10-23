@@ -1,4 +1,14 @@
 
+window.addEventListener("load", () => {
+  let startBtn = document.querySelector("#start-button");
+
+  startBtn.addEventListener("click", () => {
+    startGame();
+  });
+});
+
+
+//START GAME 
 function startGame() {
 
   const canvas = document.getElementById("canvas");
@@ -34,29 +44,25 @@ function startGame() {
   }
 
 
-  function moveCar(e) {
-
-     switch (e.keyCode) {
-       case 37: if (carX > 0) {
-           carX -= 20;
-         }
-         break;
-       case 39: if (carX < canvas.width - CarImgW) {
-           carX += 20;
-         }
-         break;
-     }
-
-  }
-
-  
-
   function ObstacleCreation() {
     const randomX = Math.random() * (canvas.width - obstacleW);
     obstacles.push({ x: randomX, y: 0 });
   }
 
+  function moveCar(e) {
 
+    switch (e.keyCode) {
+      case 37: if (carX > 0) {
+          carX -= 20;
+        }
+        break;
+      case 39: if (carX < canvas.width - CarImgW) {
+          carX += 20;
+        }
+        break;
+    }
+
+ }
 
   function checkCollisions() {
  
@@ -101,9 +107,9 @@ function startGame() {
     if (!checkCollisions()) {
       // the collision did not happen. 
       requestAnimationFrame(updateState);
-      cancelAnimationFrame(animationFrameID);
+     
     }
-  
+    
   }
 
   document.addEventListener("keydown", moveCar);
@@ -113,10 +119,3 @@ function startGame() {
   
 }
 
-window.addEventListener("load", () => {
-  let startBtn = document.querySelector("#start-button");
-
-  startBtn.addEventListener("click", () => {
-    startGame();
-  });
-});
