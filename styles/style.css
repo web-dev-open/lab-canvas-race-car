@@ -32,7 +32,15 @@ body button {
   margin-bottom: 20px;
 }
 
-#game-board {
-    float: left;
-    padding: 20px 0px;
+#game-board {  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+}
+
+#canvas {
+  flex: 1;
+  display: block;
+  margin: 0 auto;
 }
