@@ -35,4 +35,13 @@ body button {
 #game-board {
     float: left;
     padding: 20px 0px;
+    
+}
+body {
+  text-align: center;
+}
+
+#gameCanvas {
+  border: 1px solid #000;
+  margin-top: 20px;
 }
