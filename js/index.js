@@ -88,25 +88,24 @@ function startGame() {
     function updateObstacles() {
       for (let i = 0; i < obstacles.length; i++) {
         const obstacle = obstacles[i];
-        
+
         // Adjust the speed of obstacles
-        obstacle.y += 5; 
+        obstacle.y += 5;
 
         // Remove obstacles when they go beyond the canvas
         if (obstacle.y > canvas.height) {
           obstacles.splice(i, 1);
-          
+
           // Adjust the index after removing an obstacle
-          i--; 
+          i--;
         }
       }
     }
 
     // Function to draw obstacles
     function drawObstacles() {
-
       // Adjust obstacle color
-      ctx.fillStyle = "orange"; 
+      ctx.fillStyle = "orange";
 
       for (const obstacle of obstacles) {
         ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
@@ -117,6 +116,10 @@ function startGame() {
     setInterval(() => {
       createObstacle();
     }, 2000);
+
+    // *******************************
+    // Iteration 5: Move the Obstacles
+    // *******************************
 
     // Initialize a variable to track the road movement
     let roadSpeed = 0;
@@ -139,50 +142,62 @@ function startGame() {
     const updateCarPosition = () => {
       carX += carSpeed;
 
-      // Boundaries
-      if (carX < 0) {
-        carX = 0;
-      } else if (carX > canvas.width - carWidth) {
-        carX = canvas.width - carWidth;
+        // Boundaries
+        if (carX < 0) {
+          carX = 0;
+        } else if (carX > canvas.width - carWidth) {
+          carX = canvas.width - carWidth;
+        }
+      };
+  
+      // Check collisions with obstacles
+      function checkCollisions() {
+        for (const obstacle of obstacles) {
+          if (
+            carX < obstacle.x + obstacle.width &&
+            carX + carWidth > obstacle.x &&
+            carY < obstacle.y + obstacle.height &&
+            carY + carHeight > obstacle.y
+          ) {
+            
+            console.log("Game Over!");
+          }
+        }
       }
+  
+      // Adding the Animation loop
+      const drawGame = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+        // Draw and update road position
+        updateRoadPosition();
+  
+        // Draw and update obstacles
+        updateObstacles();
+        drawObstacles();
+  
+        // Draw and update car position
+        updateCarPosition();
+        ctx.drawImage(carImg, carX, carY, carWidth, carHeight);
+  
+        // Check for collisions
+        checkCollisions();
+  
+        requestAnimationFrame(drawGame);
+      };
+  
+      drawGame();
     };
-
-    // Check collisions with obstacles
-    for (const obstacle of obstacles) {
-      if (
-        carX < obstacle.x + obstacle.width &&
-        carX + carWidth > obstacle.x &&
-        carY < obstacle.y + obstacle.height &&
-        carY + carHeight > obstacle.y
-      ) {
-    // Collision detected, you can add your game over logic here
-    console.log("Game Over!");
-    }
   }
-
-    // Adding animation loop then Modify the drawGame 
-    const drawGame = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      updateRoadPosition(); // Move the road
-      updateCarPosition();
-      updateObstacles(); // Update obstacle positions
-      drawObstacles(); // Draw obstacles
-      ctx.drawImage(carImg, carX, carY, carWidth, carHeight);
-      requestAnimationFrame(drawGame);
-    };
-
-    drawGame();
-  };
-}
-
-// Listening for the load event on the window
-window.addEventListener("load", () => {
-  // Getting the Start Button
-  let startBtn = document.querySelector("#start-button");
-
-  // Attaching a click listener to the Start Game Button
-  startBtn.addEventListener("click", () => {
-    // Calling the start game function
-    startGame();
+  
+  // Listening for the load event on the window
+  window.addEventListener("load", () => {
+    // Getting the Start Button
+    let startBtn = document.querySelector("#start-button");
+  
+    // Attaching a click listener to the Start Game Button
+    startBtn.addEventListener("click", () => {
+      // Calling the start game function
+      startGame();
+    });
   });
-});
