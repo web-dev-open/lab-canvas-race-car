@@ -1,8 +1,13 @@
 body {
   padding: 0;
   text-align: center;
+  font-family: 'Orbitron', sans-serif;
 }
 
+#start-button,p{
+  font-family: 'Orbitron', sans-serif;
+
+}
 .game-intro {
   float: left;
   padding: 0% 10%;
@@ -35,4 +40,49 @@ body button {
 #game-board {
     float: left;
     padding: 20px 0px;
+}
+.btn{
+  position: absolute;
+  left: 252px;
+  margin-top: 39px;
+  background: transparent;
+ 
+}
+.bt{
+  position: absolute;
+  left: 388px;
+  margin-top: 31px;
+  background: transparent;
+}
+.sc{
+ position: relative;
+ top: 30px;
+ right: 440px;
+ font-size: 26px;
+ color: white;
+ font-weight: 800;
+
+}
+
+.one{
+  padding:10px;
+  color: #870007;
+}
+
+.two{
+  color: white;
+ padding-inline: 20px;
+}
+
+.gameover{
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%,-50%);
+  background: black;
+  font-size: 30px;
+  font-weight: 600;
+  
+  
+
 }
