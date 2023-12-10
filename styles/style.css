@@ -1,6 +1,9 @@
+@@ -1,13 +1,14 @@
 body {
   padding: 0;
+  margin:0;
   text-align: center;
+  width:100vw;
 }
 
 .game-intro {
