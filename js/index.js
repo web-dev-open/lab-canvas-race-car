@@ -1,9 +1,9 @@
 let canvas;
 let ctx;
-let carX = 220; // Initial X position of the car
-let obstacles = []; // Array to store obstacles
+let carX = 220; 
+let obstacles = [];
 let score = 0;
-let gameStarted = false; // Flag to track game state
+let gameStarted = false; 
 
 // Load images
 const roadImage = new Image();
@@ -11,7 +11,7 @@ roadImage.src = './images/road.png';
 const carImage = new Image();
 carImage.src = './images/car.png';
 
-// Function to start the game
+
 function startGame() {
     // Set game state to started
     gameStarted = true;
