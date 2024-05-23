@@ -5,20 +5,20 @@ body {
 
 .game-intro {
   float: left;
-  padding: 0% 10%;
+  padding: 8% 10%;
 }
 
 .game-intro p {
-  font-size: 18px;
+  font-size: 22px;
   font-family: "Verdana"
 }
 
 .logo-img {
-  width: 350px;
+  width: 358px;
 }
 
 .arrows-img {
-  width: 150px;
+  width: 160px;
 }
 
 body button {
@@ -36,3 +36,8 @@ body button {
     float: left;
     padding: 20px 0px;
 }
+#canvas {
+  width: 1000px; /* Desired scaled width */
+  height: 1400px; /* Desired scaled height */
+}
+
