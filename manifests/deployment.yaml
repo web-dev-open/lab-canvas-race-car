@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: car-game
+  labels:
+    app: car-game
+    kubernetes.azure.com/generator: devhub
+  namespace: namespace-workflow-1735566293826
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: car-game
+  template:
+    metadata:
+      labels:
+        app: car-game
+    spec:
+      containers:
+        - name: car-game
+          image: akscourseregistry.azurecr.io/image-workflow-1735566293826:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
