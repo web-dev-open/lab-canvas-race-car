@@ -12,8 +12,7 @@ function drawRoad() {
 
 // START GAME
 function startGame() {
-  drawRoad();
-  drawCar();
+  updateGame();  // road, car, and obstacles update automatically
 }
 
 // START BUTTON
@@ -56,3 +55,50 @@ document.addEventListener('keydown', (event) => {
   drawRoad();
   drawCar();
 });
+
+// an array to hold obstacles
+const obstacles = [];
+
+// an Obstacle class
+class Obstacle {
+
+  constructor(x, width) {
+    this.x = x;             // horizontal position (randomized later)
+    this.y = 0;             // start at the top
+    this.width = width;     // random width
+    this.height = 20;       // fixed height for now
+  }
+
+  draw() {
+    ctx.fillStyle = "red"; // color of the obstacle
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  update() {
+    this.y += 5; // speed of falling
+  }
+
+}
+
+// Generate obstacles periodically
+setInterval(() => {
+  const randomX = Math.floor(Math.random() * (canvas.width - 100)); // max 100 width
+  const randomWidth = 50 + Math.floor(Math.random() * 50); // 50-100 px wide
+  const obstacle = new Obstacle(randomX, randomWidth);
+  obstacles.push(obstacle);
+}, 2000); // every 2 seconds
+
+// Update the drawing
+function updateGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+  drawRoad();   // redraw road
+  drawCar();    // redraw car
+
+  // update and draw obstacles
+  obstacles.forEach((obs) => {
+    obs.update();
+    obs.draw();
+  });
+
+  requestAnimationFrame(updateGame); // loop
+}
