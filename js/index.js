@@ -3,11 +3,11 @@ const ctx = canvas.getContext('2d');
 
 // LOAD ROAD IMAGE
 const roadImg = new Image();
-roadImg.src = "./images/road.png"; // <-- CORRECTED PATH
+roadImg.src = "./images/road.png";
 
 // DRAW ROAD
 function drawRoad() {
-  ctx.drawImage(roadImg, 0, 0, canvas.width, canvas.height); // <-- FIXED
+  ctx.drawImage(roadImg, 0, 0, canvas.width, canvas.height);
 }
 
 // START GAME
@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
 
 // CREATE THE CAR
 const carImg = new Image();
-carImg.src = "./images/car.png"; // make sure the name matches exactly
+carImg.src = "./images/car.png";
 
 // Car position and size
 const car = {
