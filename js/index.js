@@ -90,15 +90,48 @@ setInterval(() => {
 
 // Update the drawing
 function updateGame() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-  drawRoad();   // redraw road
-  drawCar();    // redraw car
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawRoad();
+  drawCar();
 
-  // update and draw obstacles
   obstacles.forEach((obs) => {
     obs.update();
     obs.draw();
   });
 
-  requestAnimationFrame(updateGame); // loop
+  drawScore();
+
+  // Check collision
+  if (checkCollision()) {
+    alert("Game Over! Your score: " + score);
+    return; // stops the game
+  }
+
+  // Increase score
+  score++;
+
+  requestAnimationFrame(updateGame);
+}
+
+let score = 0;
+// draw score on the canvas
+function drawScore() {
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText("Score: " + score, 20, 30);
+}
+
+//Collision detection
+function checkCollision() {
+  for (let obs of obstacles) {
+    if (
+      car.x < obs.x + obs.width &&
+      car.x + car.width > obs.x &&
+      car.y < obs.y + obs.height &&
+      car.y + car.height > obs.y
+    ) {
+      return true; // collision detected
+    }
+  }
+  return false; // no collision
 }
