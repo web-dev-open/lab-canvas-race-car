@@ -31,10 +31,28 @@ const car = {
   x: 225,      // start in the middle of the road
   y: 550,      // near the bottom
   width: 50,
-  height: 100
+  height: 100,
+  speed: 10    // pixels per key press
 };
 
 // Draw the car on the canvas
 function drawCar() {
   ctx.drawImage(carImg, car.x, car.y, car.width, car.height);
 }
+
+// Listen for key presses
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') {
+    car.x -= car.speed;  // move left
+  } else if (event.key === 'ArrowRight') {
+    car.x += car.speed;  // move right
+  }
+
+  // Prevent the car from leaving the road
+  if (car.x < 0) car.x = 0;
+  if (car.x + car.width > canvas.width) car.x = canvas.width - car.width;
+
+  // Redraw everything
+  drawRoad();
+  drawCar();
+});
